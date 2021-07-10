@@ -6,45 +6,11 @@ const cors = require("cors")({ origin: true });
 const Busboy = require("busboy");
 const fs = require("fs");
 
-const gcconfig = {
-  projectId: "fir-cloud-587c5",
-  keyFilename: "fir-cloud-587c5-firebase-adminsdk-cniu3-add81399bb",
-};
 
 const { Storage } = require("@google-cloud/storage");
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-exports.onFileChange = functions.storage.object().onFinalize((event) => {
-  //   console.log(event);
-  //   const object = event;
-  //   const bucket = object.bucket;
-  //   const contentType = object.contentType;
-  //   const filePath = object.name;
-  //   console.log("File change detected, function started");
-  //   if (path.basename(filePath).startsWith("resized-")) {
-  //     console.log("We already resized that file.");
-  //     return;
-  //   }
-  //   const gcs = new Storage();
-  //   const destBucket = gcs.bucket(bucket);
-  //   const tmpFilePath = path.join(os.tmpdir(), path.basename(filePath));
-  //   const metadata = { contentType: contentType };
-  //   return destBucket
-  //     .file(filePath)
-  //     .download({
-  //       destination: tmpFilePath,
-  //     })
-  //     .then(() => {
-  //       return spawn("convert", [tmpFilePath, "-resize", "500x500", tmpFilePath]);
-  //     })
-  //     .then(() => {
-  //       return destBucket.upload(tmpFilePath, {
-  //         destination: "resized-" + path.basename(filePath),
-  //         metadata: metadata,
-  //       });
-  //     });
-});
 
 exports.uploadFile = functions.https.onRequest((req, res) => {
   const gcs = new Storage();

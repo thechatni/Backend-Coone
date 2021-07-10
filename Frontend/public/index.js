@@ -1,10 +1,3 @@
-document.getElementById("app").innerHTML = `
-<h1>Image Upload Firebase</h1>
-<div>
-<input type="file" id="fileInput" />
-</div>
-`;
-
 const fileInput = document.querySelector("#fileInput");
 
 const uploadFile = (file) => {
@@ -17,7 +10,14 @@ const uploadFile = (file) => {
   request.open("POST", API_ENDPOINT, true);
   request.onreadystatechange = () => {
     if (request.readyState === 4 && request.status === 200) {
-      alert(JSON.parse(request.responseText).message);
+      console.log(request.responseText);
+      document.getElementById("result").innerHTML = `
+      <h3 id='correct'>Image uploaded to firebase storage bucket successfully!</h3>
+      `;
+    } else {
+      document.getElementById("result").innerHTML = `
+      <h3 id='wrong'>Image upload failed</h3>
+      `;
     }
   };
   formData.append("file", file);
@@ -26,10 +26,11 @@ const uploadFile = (file) => {
 
 fileInput.addEventListener("change", (event) => {
   const files = event.target.files;
-  console.log(files);
   if (files[0].type === "image/png" || files[0].type === "image/jpeg") {
     uploadFile(files[0]);
   } else {
-    alert("Invalid file type");
+    document.getElementById("result").innerHTML = `
+      <h3 id='wrong'>Invalid upload type. Only png/jpeg images can be uploaded.</h3>
+      `;
   }
 });
