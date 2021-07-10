@@ -1,11 +1,9 @@
 const functions = require("firebase-functions");
 const os = require("os");
 const path = require("path");
-const spawn = require("child-process-promise").spawn;
 const cors = require("cors")({ origin: true });
 const Busboy = require("busboy");
 const fs = require("fs");
-
 
 const { Storage } = require("@google-cloud/storage");
 // // Create and Deploy Your First Cloud Functions
@@ -13,7 +11,11 @@ const { Storage } = require("@google-cloud/storage");
 //
 
 exports.uploadFile = functions.https.onRequest((req, res) => {
-  const gcs = new Storage();
+  const gcs = new Storage({
+    keyFilename: "fir-cloud-587c5-firebase-adminsdk-cniu3-add81399bb.json",
+    projectId: "fir-cloud-587c5",
+  });
+
   cors(req, res, () => {
     const busboy = new Busboy({ headers: req.headers });
 
