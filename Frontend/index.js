@@ -17,7 +17,7 @@ const uploadFile = (file) => {
   request.open("POST", API_ENDPOINT, true);
   request.onreadystatechange = () => {
     if (request.readyState === 4 && request.status === 200) {
-      console.log(request.responseText);
+      alert(JSON.parse(request.responseText).message);
     }
   };
   formData.append("file", file);
@@ -26,5 +26,10 @@ const uploadFile = (file) => {
 
 fileInput.addEventListener("change", (event) => {
   const files = event.target.files;
-  uploadFile(files[0]);
+  console.log(files);
+  if (files[0].type === "image/png" || files[0].type === "image/jpeg") {
+    uploadFile(files[0]);
+  } else {
+    alert("Invalid file type");
+  }
 });
